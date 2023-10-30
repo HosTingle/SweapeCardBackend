@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SweapCard", "SweapCard\SweapCard.csproj", "{7BCDF049-46E2-4882-9F16-6F87AE41295C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate_Dapper", "RealEstate_Dapper\RealEstate_Dapper.csproj", "{24CCA42A-B083-4843-92BC-EEDC7B68FA55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BCDF049-46E2-4882-9F16-6F87AE41295C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BCDF049-46E2-4882-9F16-6F87AE41295C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BCDF049-46E2-4882-9F16-6F87AE41295C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BCDF049-46E2-4882-9F16-6F87AE41295C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24CCA42A-B083-4843-92BC-EEDC7B68FA55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24CCA42A-B083-4843-92BC-EEDC7B68FA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24CCA42A-B083-4843-92BC-EEDC7B68FA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24CCA42A-B083-4843-92BC-EEDC7B68FA55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {715DEF74-8F15-4E03-8539-26B74C79D393}
+	EndGlobalSection
+EndGlobal
