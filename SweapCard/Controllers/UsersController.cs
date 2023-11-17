@@ -51,5 +51,11 @@ namespace RealEstate_Dapper.Controllers
             var values = await _userRepository.GetAllUserWithOther();
             return Ok(values);
         }
+        [HttpGet("{id}GetByUserWithOtherId")]
+        public async Task<IActionResult> GetByUserWithOtherId(int id)
+        {
+            var value = await _userRepository.GetUserWithOtherId(id);
+            return Ok(value);
+        }
     }
 }

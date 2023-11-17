@@ -11,6 +11,7 @@ namespace RealEstate_Dapper.Respositories.UserRepository
         void DeleteUser(int id);
         void UpdateUser(UpdateUserDto userDto);
         Task<GetByIdUserDto> GetUserId(int id);
+        Task<ResultUserWithOtherDto> GetUserWithOtherId(int id); 
         Task<List<ResultUserWithOtherDto>> GetAllUserWithOther(); 
     }
 }

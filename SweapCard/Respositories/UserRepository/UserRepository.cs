@@ -74,6 +74,17 @@ namespace RealEstate_Dapper.Respositories.UserRepository
                 return values.ToList();
             }
         }
+        public async Task<ResultUserWithOtherDto> GetUserWithOtherId(int id)
+        {
+            string query = "Select UserId,ImagePath,Username,Password,Name,Surname,BirthDate,Phone,Description,Score,Status,WordCounter From Users inner join Avatars on Users.AvatarId=Avatars.AvatarId inner join Score on Users.ScoreId=Score.ScoreId inner join WordCounter on Users.WordCounterId=WordCounter.WordCounterId Where UserId=@userId";
+            var parameters = new DynamicParameters(query);
+            parameters.Add("@userId", id);
+            using (var connection = _context.CreatConnection())
+            {
+                var values = await connection.QueryFirstOrDefaultAsync<ResultUserWithOtherDto>(query, parameters);
+                return values;
+            }
+        }
 
         public async Task<GetByIdUserDto> GetUserId(int id)
         {
@@ -87,6 +98,8 @@ namespace RealEstate_Dapper.Respositories.UserRepository
             }
 
         }
+
+        
 
         public async void UpdateUser(UpdateUserDto userDto)
         {
