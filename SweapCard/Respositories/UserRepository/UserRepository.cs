@@ -3,20 +3,27 @@ using RealEstate_Dapper.Dtos.UserDtos;
 using RealEstate_Dapper.Models.DapperContext;
 using SweapCard.Dtos.UserDtos;
 using SweapCard.Dtos.WordDtos;
+using SweapCard.Respositories.ScoreRepository;
+using SweapCard.Respositories.WordCounterRepository;
 
 namespace RealEstate_Dapper.Respositories.UserRepository
 {
     public class UserRepository : IUserRepository
     {
         private readonly Context _context;
-
-        public UserRepository(Context context)
+        private readonly IScoreRepository _scoreRepository; 
+        private readonly IWordCounterRepository _wordCounterRepository;
+        public UserRepository(Context context, IScoreRepository scoreRepository,IWordCounterRepository wordCounterRepository)
         {
             _context = context;
+            _scoreRepository = scoreRepository;
+            _wordCounterRepository = wordCounterRepository;
         } 
 
         public async void CreatUser(CreatUserDto userDto)
         {
+            int WordCounterId= await _wordCounterRepository.CreatWordCounter();
+            int ScoreId= await _scoreRepository.CreateScore();
             string query = "insert into Users (AvatarId,Username,Password,Name,Surname,BirthDate,Phone,Description,ScoreId,Status,WordCounterId) values (@avatarId,@userName,@password,@name,@surname,@birthDate,@phone,@description,@scoreId,@status,@wordCounterId)";
             var paramaters = new DynamicParameters();
             paramaters.Add("avatarId", userDto.AvatarId);
@@ -27,9 +34,9 @@ namespace RealEstate_Dapper.Respositories.UserRepository
             paramaters.Add("birthDate", userDto.BirthDate);
             paramaters.Add("phone", userDto.Phone);
             paramaters.Add("description", userDto.Description);
-            paramaters.Add("scoreId", userDto.AvatarId);
+            paramaters.Add("scoreId", ScoreId);
             paramaters.Add("status", true);
-            paramaters.Add("wordCounterId", userDto.WordCounterId);
+            paramaters.Add("wordCounterId", WordCounterId);
             using(var connection = _context.CreatConnection())
             {
                 await connection.ExecuteAsync(query, paramaters);

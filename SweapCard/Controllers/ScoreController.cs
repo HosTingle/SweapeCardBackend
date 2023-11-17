@@ -27,7 +27,7 @@ namespace SweapCard.Controllers
         [HttpPost("CreateScore")]
         public async Task<IActionResult> CreatScore()
         {
-            _scoreRepository.CreatScore();
+            _scoreRepository.CreateScore();
             return Ok("Score Oluşturuldu");
         }
         [HttpDelete("DeleteScore")]

@@ -3,7 +3,7 @@
     public class GetByWordCounterIdDto
     {
         public int WordCounterId { get; set; }
-        public string WordCounter { get; set; }
-        public string LearnWordCounter { get; set; }
+        public int WordCounter { get; set; }
+        public int LearnWordCounter { get; set; }
     }
 }

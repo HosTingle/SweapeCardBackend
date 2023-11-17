@@ -15,21 +15,43 @@ namespace SweapCard.Respositories.WordCounterRepository
         {
             _context = context;
         }
-
-        public async void  CreatWordCounter(CreatWordCounterDto wordCounterDto)
+        public async Task<int> CreatWordCounter()
         {
-            string query = "insert into WordCounter (WordCounter,LearnWordCounter) values (@wordCounter,@learnWordCounter)";
+            string query = "insert into WordCounter (WordCounter,LearnWordCounter) values (@wordCounter,@learnWordCounter); SELECT CAST(SCOPE_IDENTITY() AS INT)";
             var paramaters = new DynamicParameters();
-            paramaters.Add("wordCounter", wordCounterDto.WordCounter);
-            paramaters.Add("learnWordCounter", wordCounterDto.LearnWordCounter);
-      
-
+            paramaters.Add("wordCounter", 0);
+            paramaters.Add("learnWordCounter", 0);
             using (var connection = _context.CreatConnection())
             {
-                await connection.ExecuteAsync(query, paramaters);
+                int? result = await connection.QueryFirstOrDefaultAsync<int?>(query, paramaters);
+                int? wordCounterId = result;
+               
+                if (wordCounterId.HasValue)
+                {
+                    return wordCounterId.Value;
+                }
+                else
+                {
+                    // İşlem başarısız olduysa burada bir hata işleyebilirsiniz.
+                    throw new Exception("WordCounter eklenemedi.");
+                }
             }
         }
-
+        public async Task<UpdateWordCounterDto> GetWordCounterId(int id)
+        {
+            string query = "Select * From WordCounter Where WordCounterId=@wordCounterId";
+            var parameters = new DynamicParameters(query);
+            parameters.Add("@wordCounterId", id);
+            using (var connection = _context.CreatConnection())
+            {
+                var values = await connection.QueryFirstOrDefaultAsync<UpdateWordCounterDto>(query, parameters);
+                return values;
+            }
+        }
+        public async void OneWordAdd(WordWithWordCounterDtos wordWithWordCounterDtos)
+        {
+            
+        }
         public async void DeleteWordCounter(int id)
         {
             string query = "Delete From WordCounter Where WordCounterId=@wordCounterId";
@@ -51,25 +73,15 @@ namespace SweapCard.Respositories.WordCounterRepository
             }
         }
 
-        public async Task<GetByWordCounterIdDto> GetWordCounterId(int id)
-        {
-            string query = "Select * From WordCounter Where WordCounterId=@wordCounterId";
-            var parameters = new DynamicParameters(query);
-            parameters.Add("@wordCounterId", id);
-            using (var connection = _context.CreatConnection())
-            {
-                var values = await connection.QueryFirstOrDefaultAsync<GetByWordCounterIdDto>(query, parameters);
-                return values;
-            }
-        }
+       
 
-        public async void UpdateWordCounter(UpdateWordCounterDto wordCounterDto)
+        public async void UpdateWordCounter(UpdateWordCounterDto updateWordCounterDto)
         {
             string query = "Update WordCounter Set WordCounter=@wordCounter,LearnWordCounter=@learnWordCounter where WordCounterId=@wordCounterId";
             var paramaters = new DynamicParameters();
-            paramaters.Add("wordCounterId", wordCounterDto.WordCounterId);
-            paramaters.Add("wordCounter", wordCounterDto.WordCounter);
-            paramaters.Add("learnWordCounter", wordCounterDto.LearnWordCounter);
+            paramaters.Add("wordCounterId", updateWordCounterDto.WordCounterId);
+            paramaters.Add("wordCounter", updateWordCounterDto.WordCounter);
+            paramaters.Add("learnWordCounter", updateWordCounterDto.LearnWordCounter);
             using (var connection = _context.CreatConnection())
             {
                 await connection.ExecuteAsync(query, paramaters);

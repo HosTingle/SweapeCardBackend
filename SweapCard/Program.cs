@@ -1,5 +1,7 @@
+using Microsoft.Extensions.DependencyInjection;
 using RealEstate_Dapper.Models.DapperContext;
 using RealEstate_Dapper.Respositories.UserRepository;
+using SweapCard.ChatGpt;
 using SweapCard.Respositories.AvatarRepository;
 using SweapCard.Respositories.LanguageRepository;
 using SweapCard.Respositories.LearnWordRepository;
@@ -8,9 +10,10 @@ using SweapCard.Respositories.WordCounterRepository;
 using SweapCard.Respositories.WordRepository;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHttpClient();
 // Add services to the container.
 builder.Services.AddTransient<Context>();
+builder.Services.AddTransient<ChatGptWords>();
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IWordRepository, WordRepository>();
 builder.Services.AddTransient<IWordCounterRepository, WordCounterRepository>();

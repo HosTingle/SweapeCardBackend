@@ -17,15 +17,15 @@ namespace SweapCard.Controllers
             _wordRepository = wordRepository;
         }
         [HttpGet("getallWord")]
-        public async Task<IActionResult> WordList()
+        public async Task<IActionResult> WordList(int id)
         {
-            var values = await _wordRepository.GetAllWord();
+            var values = await _wordRepository.GetAllWord(id);
             return Ok(values);
         }
-        [HttpPost("CreatUser")]
-        public async Task<IActionResult> CreatWord(CreatWordDto creatWordDto)
+        [HttpPost("CreatWord")]
+        public async Task<IActionResult> CreatWord(WordWithWordCounterDtos wordWithWordCounterDtos)
         {
-            _wordRepository.CreatWord(creatWordDto);
+            _wordRepository.CreatWord(wordWithWordCounterDtos);
             return Ok("Word Oluşturuldu");
         }
         [HttpDelete("DeleteWord")]
@@ -51,6 +51,18 @@ namespace SweapCard.Controllers
         {
             var values = await _wordRepository.GetAllWordWithUser();
             return Ok(values);
+        }
+        [HttpPost("CreatWitChatGpt")]
+        public async Task<IActionResult> CreatWitChatGpt(WordWithWordCounterDtos wordWithWordCounterDtos)
+        {
+            _wordRepository.CreatWordChatGPT(wordWithWordCounterDtos);
+            return Ok("Word Oluşturuldu");
+        }
+        [HttpPut("UpdateWordshowcounter")]
+        public async Task<IActionResult> UpdateWordshowcounter(int id)
+        {
+            _wordRepository.UpdateWordshowcounter(id); 
+            return Ok("Word'ün counterı başarılı bir şekilde güncellendi");
         }
 
 

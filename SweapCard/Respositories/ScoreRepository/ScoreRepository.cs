@@ -14,19 +14,28 @@ namespace SweapCard.Respositories.ScoreRepository
             _context = context;
         }
 
-        public async void CreatScore()
+        public async Task<int> CreateScore()
         {
-            string query = "insert into Score (Score) values (@score)";
-            var paramaters = new DynamicParameters();
-            paramaters.Add("score", 0);
-
+            string query = "INSERT INTO Score (Score) VALUES (@score); SELECT CAST(SCOPE_IDENTITY() AS INT)";
+            var parameters = new DynamicParameters();
+            parameters.Add("score", 0);
 
             using (var connection = _context.CreatConnection())
             {
-                await connection.ExecuteAsync(query, paramaters);
+                var result = await connection.QueryFirstOrDefaultAsync<int?>(query, parameters);
+                int? scoreId = result;
+
+                if (scoreId.HasValue)
+                {
+                    return scoreId.Value;
+                }
+                else
+                {
+                    // İşlem başarısız olduysa burada bir hata işleyebilirsiniz.
+                    throw new Exception("Score eklenemedi.");
+                }
             }
         }
-
         public async void DeleteScore(int id)
         {
             string query = "Delete From Score Where ScoreId=@scoreId";

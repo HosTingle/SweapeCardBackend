@@ -1,6 +1,6 @@
-﻿namespace RealEstate_Dapper.Dtos.UserDtos
+﻿namespace SweapCard.Dtos.UserDtos
 {
-    public class CreatUserDto
+    public class CreatUserAndScoreDto
     {
         public int UserId { get; set; }
         public int AvatarId { get; set; }
@@ -11,7 +11,9 @@
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public string Description { get; set; }
-       
-
+        public bool Status { get; set; }
+        public int WordCounterId { get; set; }
+        public int ScoreId { get; set; }
+        public int Score { get; set; }
     }
 }

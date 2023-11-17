@@ -25,9 +25,9 @@ namespace SweapCard.Controllers
             return Ok(values);
         }
         [HttpPost("CreatWordCounter")]
-        public async Task<IActionResult> CreatWordCounter(CreatWordCounterDto creatWordCounterDto)
+        public async Task<IActionResult> CreatWordCounter()
         {
-            _wordCounterRepository.CreatWordCounter(creatWordCounterDto);
+            _wordCounterRepository.CreatWordCounter();
             return Ok("WordCounter Oluşturuldu"); 
         }
         [HttpDelete("DeleteWordCounter")]

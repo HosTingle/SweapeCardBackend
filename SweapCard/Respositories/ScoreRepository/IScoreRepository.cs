@@ -6,7 +6,7 @@ namespace SweapCard.Respositories.ScoreRepository
     public interface IScoreRepository
     {
         Task<List<ResultScoreDto>> GetAllScore();
-        void CreatScore();
+        Task<int> CreateScore();
         void DeleteScore(int id);  
         void UpdateScore(ResultScoreDto resultScoreDto);
         Task<ResultScoreDto> GetScoreId(int id); 
